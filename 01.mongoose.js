@@ -54,9 +54,12 @@ const stu = new Student({
 })
 // 保存
 stu.save()
-  .then(() => {
+  .then(
+    // 成功
+    () => {
       console.log('保存成功')
     },
+    // 失败
     (err) => {
       console.log('失败', err)
     }
