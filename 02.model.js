@@ -1,6 +1,6 @@
 // 引入mongoose
 const mongoose = require('mongoose');
-
+// 引入连接数据库的模块
 // 连接数据库
 mongoose.connect('mongodb://localhost:27017/class1108_test', {
   useNewUrlParser: true,
@@ -92,7 +92,7 @@ const Students = mongoose.model('students', stuSchema);
     //     age: 18
     //   }
     // })
-    // 修改所有人的你年龄都减少2岁
+    // 修改所人的你年龄都减少2岁
     const result = await Students.updateMany({}, {
       $inc: {
         age: -2
