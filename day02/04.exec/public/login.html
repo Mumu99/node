@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>问题不可能由导致这种问题的思维方式来解决</title>
+</head>
+
+<body>
+  <h2>用户登录</h2>
+  <form id="login-form">
+    用户名: <input type="text" name="" id="login-username"><br />
+    密码: <input type="password" id="login-password"><br />
+    <button type="submit">登录</button>
+  </form>
+  <!-- 引入axios -->
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.min.js"></script>
+  <script type="text/javascript">
+    const form = document.getElementById('login-form');
+    const usernameVal = document.getElementById('login-username');
+    const passwordVal = document.getElementById('login-password');
+    const userNameReg = /^[0-9a-zA-Z]{4,15}/;
+    const passwordReg = /^[0-9a-zA-Z_]{4,20}/;
+    form.addEventListener('submit', function (e) {
+      // 禁止默认行为
+      e.preventDefault()
+      // 手机表单数据
+      const username = usernameVal.value.trim()
+      const password = passwordVal.value.trim()
+      // 正则校验
+      if (!userNameReg.test(username)) {
+        alert('用户名不合法')
+        return;
+      }
+      if (!passwordReg.test(password)) {
+        alert('密码不合法');
+        return;
+      }
+      // 通过校验, 发送请求, 请求登录
+      axios.post('http://localhost:9527/login', {
+          username,
+          password
+        })
+        .then(
+          (res) => {
+            // 请求成功
+            const result = res.data;
+            if (result.code === 200) {
+              alert('登录成功');
+              return;
+            }
+            alert(result.message);
+          },
+          (err) => {
+            alert('登录失败', err);
+          }
+        )
+    })
+  </script>
+</body>
+
+</html>
